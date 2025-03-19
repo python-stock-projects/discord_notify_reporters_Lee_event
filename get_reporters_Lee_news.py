@@ -23,12 +23,21 @@ if os.path.exists(sent_news_file):
 else:
     sent_news = set()
 
-# 紀錄上次檢查日期
-last_checked_date = datetime.now().strftime('%Y%m%d')
+# 紀錄上次檢查日期的文件
+last_checked_date_file = 'last_checked_date.txt'
+if os.path.exists(last_checked_date_file):
+    with open(last_checked_date_file, 'r', encoding='utf-8') as f:
+        last_checked_date = f.read().strip()
+else:
+    last_checked_date = datetime.now().strftime('%Y%m%d')
 
 def save_sent_news():
     with open(sent_news_file, 'w', encoding='utf-8') as f:
         json.dump(list(sent_news), f, ensure_ascii=False, indent=4)
+
+def save_last_checked_date(date):
+    with open(last_checked_date_file, 'w', encoding='utf-8') as f:
+        f.write(date)
 
 def get_news():
 
@@ -89,6 +98,7 @@ def check_news():
         sent_news.clear()
         last_checked_date = today
         save_sent_news()
+        save_last_checked_date(today)
 
     new_news = get_news()
 
