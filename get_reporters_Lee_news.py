@@ -47,7 +47,7 @@ def get_news():
                     date_tag = news.find('time')
                     if date_tag:
                         date_str = date_tag.get_text()  # 提取日期字串
-                        news_datetime = datetime.strptime(date_str, '%Y-%m-%d %H:%M').astimezone(taiwan_tz)
+                        news_datetime = datetime.strptime(date_str, '%Y-%m-%d %H:%M').replace(tzinfo=taiwan_tz)
                         print(f"news_datetime: {news_datetime}")
                         time_diff = now_taiwan_time - news_datetime
                         print(f"time_diff: {time_diff}")
