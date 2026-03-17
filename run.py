@@ -1,12 +1,13 @@
 
 import requests
 import sys
+import os
 
 
 from get_reporters_Lee_news import check_news  # 匯入函式
 
 def notify_discord_Lees_webhook(msg):
-    url = 'https://discord.com/api/webhooks/1330733006528184380/8o5Cwid5GM_ZKMvEVzPryGXxWqu_tPOLVKB9e4SRPEDax92w4h13P24_xXiyU1LLdGrV'
+    url = os.getenv('DISCORD_WEBHOOK_URL')
     headers = {"Content-Type": "application/json"}
     data = {"content": msg, "username": "新新聞通知"}
     res = requests.post(url, headers = headers, json = data) 
